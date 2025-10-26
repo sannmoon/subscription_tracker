@@ -2,6 +2,7 @@ import { Subscription } from "@prisma/client";
 import DeleteButton from "./DeleteButton";
 import {
   addMonths,
+  addWeeks,
   addYears,
   differenceInDays,
   format,
@@ -31,6 +32,8 @@ const SubscriptionCard = ({
         nextPaymentDate = addMonths(nextPaymentDate, 1);
       } else if (billingFrequency === "yearly") {
         nextPaymentDate = addYears(nextPaymentDate, 1);
+      } else if (billingFrequency === "weekly") {
+        nextPaymentDate = addWeeks(nextPaymentDate, 1);
       } else {
         throw new Error(
           'Invalid billing frequency. Use "monthly" or "yearly".'
@@ -62,7 +65,7 @@ const SubscriptionCard = ({
           {format(v.nextPaymentDate, "yyyy-MM-dd")}
         </p>
         <div className="text-center flex-1">
-          <p className="text-sM">{v.daysLeft}</p>
+          <p className="text-sm">{v.daysLeft}</p>
           <p className="text-[9px] text-gray-400 uppercase">DAYS LEFT</p>
         </div>
       </div>
